@@ -1,2 +1,2 @@
 # stella
-Bot for my discord stuff 💫
+Bot for my discord server management stuff 💫
