@@ -10,8 +10,8 @@
     "fmt": "prettier --write ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Levi Lim <shiueo.csh@gmail.com>",
+  "license": "MIT",
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "discord.js": "^14.21.0",

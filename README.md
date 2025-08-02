@@ -1,3 +1,3 @@
 # stella
 
-Bot for my discord server management stuff 💫
+A simple bot for my discord server management stuff 💫
