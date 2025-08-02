@@ -4,22 +4,14 @@ import { addTicketPanel } from '../database';
 export const data = new SlashCommandBuilder()
   .setName('ticket')
   .setDescription('티켓 패널을 설정합니다')
-  .addStringOption(option =>
-    option.setName('message_id')
-      .setDescription('메시지 ID')
-      .setRequired(true))
-  .addStringOption(option =>
-    option.setName('emoji')
-      .setDescription('이모지 (예: 🎫 또는 :ticket:)')
-      .setRequired(true))
-  .addChannelOption(option =>
-    option.setName('category')
-      .setDescription('티켓이 생성될 카테고리')
-      .setRequired(false))
-  .addStringOption(option =>
-    option.setName('ticket_name')
-      .setDescription('티켓 채널 이름 (기본값: ticket)')
-      .setRequired(false))
+  .addStringOption((option) => option.setName('message_id').setDescription('메시지 ID').setRequired(true))
+  .addStringOption((option) =>
+    option.setName('emoji').setDescription('이모지 (예: 🎫 또는 :ticket:)').setRequired(true)
+  )
+  .addChannelOption((option) => option.setName('category').setDescription('티켓이 생성될 카테고리').setRequired(false))
+  .addStringOption((option) =>
+    option.setName('ticket_name').setDescription('티켓 채널 이름 (기본값: ticket)').setRequired(false)
+  )
   .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels);
 
 export async function execute(interaction: ChatInputCommandInteraction) {
@@ -41,9 +33,9 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     addTicketPanel(messageId, interaction.channelId, emoji, category?.id, ticketName);
     await message.react(emoji);
 
-    await interaction.reply({ 
+    await interaction.reply({
       content: `메시지에 ${emoji} 티켓 반응을 추가했습니다. 이 이모지를 누르면 티켓이 생성됩니다.`,
-      ephemeral: true 
+      ephemeral: true
     });
   } catch (error) {
     console.error(error);

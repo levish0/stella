@@ -45,57 +45,67 @@ export function initDatabase() {
 }
 
 export function addRoleReaction(messageId: string, channelId: string, emoji: string, roleId: string) {
-  db.insert(roleReactions).values({
-    messageId,
-    channelId,
-    emoji,
-    roleId
-  }).run();
+  db.insert(roleReactions)
+    .values({
+      messageId,
+      channelId,
+      emoji,
+      roleId
+    })
+    .run();
 }
 
 export function getRoleReaction(messageId: string, emoji: string) {
-  const result = db.select().from(roleReactions)
-    .where(and(
-      eq(roleReactions.messageId, messageId),
-      eq(roleReactions.emoji, emoji)
-    )).all();
+  const result = db
+    .select()
+    .from(roleReactions)
+    .where(and(eq(roleReactions.messageId, messageId), eq(roleReactions.emoji, emoji)))
+    .all();
   return result[0];
 }
 
-export function addTicketPanel(messageId: string, channelId: string, emoji: string, categoryId?: string, ticketName?: string) {
-  db.insert(ticketPanels).values({
-    messageId,
-    channelId,
-    emoji,
-    categoryId,
-    ticketName: ticketName || 'ticket'
-  }).run();
+export function addTicketPanel(
+  messageId: string,
+  channelId: string,
+  emoji: string,
+  categoryId?: string,
+  ticketName?: string
+) {
+  db.insert(ticketPanels)
+    .values({
+      messageId,
+      channelId,
+      emoji,
+      categoryId,
+      ticketName: ticketName || 'ticket'
+    })
+    .run();
 }
 
 export function getTicketPanel(messageId: string, emoji: string) {
-  const result = db.select().from(ticketPanels)
-    .where(and(
-      eq(ticketPanels.messageId, messageId),
-      eq(ticketPanels.emoji, emoji)
-    )).all();
+  const result = db
+    .select()
+    .from(ticketPanels)
+    .where(and(eq(ticketPanels.messageId, messageId), eq(ticketPanels.emoji, emoji)))
+    .all();
   return result[0];
 }
 
 export function addActiveTicket(channelId: string, userId: string, panelId: number) {
-  db.insert(activeTickets).values({
-    channelId,
-    userId,
-    panelId
-  }).run();
+  db.insert(activeTickets)
+    .values({
+      channelId,
+      userId,
+      panelId
+    })
+    .run();
 }
 
 export function getActiveTicket(channelId: string) {
-  const result = db.select().from(activeTickets)
-    .where(eq(activeTickets.channelId, channelId)).all();
+  const result = db.select().from(activeTickets).where(eq(activeTickets.channelId, channelId)).all();
   return result[0];
 }
 
 export function removeActiveTicket(channelId: string) {
-  db.delete(activeTickets)
-    .where(eq(activeTickets.channelId, channelId)).run();
+  db.delete(activeTickets).where(eq(activeTickets.channelId, channelId)).run();
 }

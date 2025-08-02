@@ -42,9 +42,8 @@ export function handleMessageReactionAdd(client: Client) {
         const guild = reaction.message.guild;
         if (!guild) return;
 
-        const existingTickets = db.select().from(activeTickets)
-          .where(eq(activeTickets.userId, user.id)).all();
-        
+        const existingTickets = db.select().from(activeTickets).where(eq(activeTickets.userId, user.id)).all();
+
         if (existingTickets.length > 0) {
           try {
             await user.send('이미 열린 티켓이 있습니다!');
@@ -61,13 +60,13 @@ export function handleMessageReactionAdd(client: Client) {
           permissionOverwrites: [
             {
               id: guild.id,
-              deny: [PermissionFlagsBits.ViewChannel],
+              deny: [PermissionFlagsBits.ViewChannel]
             },
             {
               id: user.id,
-              allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages],
-            },
-          ],
+              allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
+            }
+          ]
         });
 
         addActiveTicket(ticketChannel.id, user.id, ticketPanel.id);

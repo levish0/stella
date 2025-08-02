@@ -1,9 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { getActiveTicket, removeActiveTicket } from '../database';
 
-export const data = new SlashCommandBuilder()
-  .setName('close')
-  .setDescription('현재 티켓을 닫습니다');
+export const data = new SlashCommandBuilder().setName('close').setDescription('현재 티켓을 닫습니다');
 
 export async function execute(interaction: ChatInputCommandInteraction) {
   if (!interaction.guild) {
@@ -12,7 +10,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
   try {
     const activeTicket = getActiveTicket(interaction.channelId);
-    
+
     if (!activeTicket) {
       return interaction.reply({ content: '이 채널은 티켓이 아닙니다.', ephemeral: true });
     }
@@ -24,11 +22,10 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.reply('티켓을 닫는 중...');
 
     removeActiveTicket(interaction.channelId);
-    
+
     setTimeout(async () => {
       await interaction.channel?.delete();
     }, 3000);
-
   } catch (error) {
     console.error(error);
     await interaction.reply({ content: '오류가 발생했습니다.', ephemeral: true });
